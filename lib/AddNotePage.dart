@@ -12,6 +12,7 @@ class _AddNotePageState extends State<AddNotePage> {
 
   final _titleController = TextEditingController();
   final _taskController = TextEditingController();
+  late TextEditingController _taskeditingController = TextEditingController();
   List<Task> tasks = [];
   String? _errorText;
   
@@ -20,12 +21,18 @@ class _AddNotePageState extends State<AddNotePage> {
   void dispose(){
     _titleController.dispose();
     _taskController.dispose();
+    _taskeditingController.dispose();
     super.dispose();
   }
   
   void _autosave(){
-    if (_titleController.text.isEmpty && _taskController.text.isEmpty){
+    if (_titleController.text.isEmpty && _taskController.text.isEmpty && _taskeditingController.text.isEmpty){
       Navigator.pop(context);
+    }
+    if (_titleController.text.isEmpty && _taskController.text.isEmpty && _taskeditingController.text.isNotEmpty){
+      Navigator.pop(context, Note(
+        title: _titleController.text,
+        tasks: tasks));
     }
     else if (_titleController.text.isNotEmpty && _taskController.text.isNotEmpty){
       Navigator.pop(context, Note(
@@ -115,8 +122,8 @@ class _AddNotePageState extends State<AddNotePage> {
                       labelText: 'Add a new Task',
                     ),
                     onSubmitted: (value) {
-                if(value.isNotEmpty){
-                  setState(() {
+                    if(value.isNotEmpty){
+                      setState(() {
                     tasks.add(Task(description: value));
                     _taskController.clear();
                     myFocusNode.requestFocus();
@@ -127,7 +134,6 @@ class _AddNotePageState extends State<AddNotePage> {
                   ),
                   const SizedBox(
                   width: 15,
-                  // height: 10,
                   ),
                 ],
               ),
@@ -144,9 +150,11 @@ class _AddNotePageState extends State<AddNotePage> {
                         Expanded(
                           child: CheckboxListTile(
                             controlAffinity: ListTileControlAffinity.leading,
+                            focusNode: FocusNode(),
                             title: TextField(
-                              controller: TextEditingController(text: tasks[index].description),
-                              decoration: InputDecoration(
+                              controller: _taskeditingController = 
+                              TextEditingController(text: tasks[index].description),
+                              decoration: const InputDecoration(
                                 border: InputBorder.none
                               ),
                               onSubmitted: (newValue) {

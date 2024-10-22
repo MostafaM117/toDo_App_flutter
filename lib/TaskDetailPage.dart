@@ -18,6 +18,7 @@ late TextEditingController _taskTitleController = TextEditingController();
 late List<Task> tasks;
 late String initText;
 FocusNode myFocusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -135,7 +136,7 @@ void _deleteNote(){
                                 border: InputBorder.none,
                               ),
                               controller: TextEditingController(text: tasks[index].description),
-                              onSubmitted: (newValue) {
+                              onSubmitted: (newValue){
                                 setState(() {
                                   tasks[index].description = newValue;
                                 });
