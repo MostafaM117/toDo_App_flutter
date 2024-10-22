@@ -91,7 +91,7 @@ void _deleteNote(){
             Padding(
             padding: const EdgeInsets.all(18.0),
             child: TextField(
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
               ),
               controller: _taskaddController,

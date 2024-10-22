@@ -53,7 +53,7 @@ showAlert(BuildContext context, int index){
         backgroundColor: const Color.fromARGB(255, 253, 248, 203),
         appBar: AppBar(
           backgroundColor: const Color(0xFF5780FF),
-          title: const Center(child: Text("Task To Do",
+          title: const Center(child: Text("To Do App",
             style: TextStyle(fontWeight:FontWeight.bold),)
           ),
           foregroundColor: Colors.white,
